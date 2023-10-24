@@ -25,7 +25,7 @@ public class Program {
 
 		try (BufferedReader br = new BufferedReader(new FileReader(path))) {
 
-			List<Sale> list = new ArrayList<>();
+			List<Sale> sales = new ArrayList<>();
 
 			String line = br.readLine();
 			while (line != null) {
@@ -35,10 +35,24 @@ public class Program {
 				String seller = fields[2];
 				Integer items = Integer.parseInt(fields[3]);
 				Double total = Double.parseDouble(fields[4]);
-				list.add(new Sale(month, year, seller, items, total));
+				sales.add(new Sale(month, year, seller, items, total));
 				line = br.readLine();
 
 			}
+			
+			  // Usando Streams e Collectors para calcular o total vendido por vendedor
+            Map<String, Double> totalSalesBySeller = sales.stream()
+                    .collect(Collectors.groupingBy(Sale::getSeller, Collectors.summingDouble(Sale::getTotal)));
+                    
+
+            // Iterando e exibindo o total vendido por cada vendedor
+            totalSalesBySeller.forEach((seller, totalSales) 
+            		-> System.out.println( seller + " - " + String.format("%.2f" , totalSales)));
+           
+			
+			
+			
+			/*
 
 			// Crie um conjunto (Set) para armazenar nomes únicos de vendedores
 			Set<String> uniqueSellers = list.stream()
@@ -56,7 +70,7 @@ public class Program {
 						
 							uniqueSellers.forEach(System.out::println); 
 							
-							
+		*/					
 						
 
 		} catch (IOException e) {

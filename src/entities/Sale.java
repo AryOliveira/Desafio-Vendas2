@@ -62,12 +62,4 @@ public class Sale {
 		this.total = total;
 	}
 	
-	public Double totalPrice() {
-		return total / items;
-	}
-
-	@Override
-	public String toString() {
-		return seller + " - " + total + String.format("%.2f",  getTotal());
-	}
 }
